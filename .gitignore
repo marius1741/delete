@@ -3,3 +3,13 @@
 ################################################################################
 
 /.vs/delete/v16
+/.vs/delete/DesignTimeBuild
+/delete.API/obj
+/delete.Business/obj
+/delete.Data/obj
+/delete.DB/obj/Debug
+/delete.DB/delete.DB.jfm
+/delete.DB/delete.DB.sqlproj.user
+/delete.DTO/obj
+/delete.Repository/bin/Debug/netstandard2.0
+/delete.Repository/obj
