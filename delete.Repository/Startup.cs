@@ -12,6 +12,8 @@ namespace delete.Repository
             {
                 return new Entities(connectionString);
             });
+
+            services.AddScoped<IDeleteRepository, DeleteRepository>();
         }
     }
 }

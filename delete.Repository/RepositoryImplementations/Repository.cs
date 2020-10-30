@@ -13,7 +13,7 @@ namespace delete.Repository.RepositoryImplementations
             EntityContext = entityContext ?? throw new ArgumentNullException(nameof(entityContext), "you's stupid");
         }
         protected Entities EntityContext { get; private set; }
-        public TEntity Add(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             if(entity == null)
             {
@@ -24,7 +24,7 @@ namespace delete.Repository.RepositoryImplementations
             entitySet.Add(entity);
             return entity;
         }
-        public IEnumerable<TEntity> Add(IEnumerable<TEntity> entity)
+        public virtual IEnumerable<TEntity> Add(IEnumerable<TEntity> entity)
         {
             if(entity == null)
             {
@@ -45,7 +45,7 @@ namespace delete.Repository.RepositoryImplementations
             }
             return entity;
         }
-        public void Delete(int key)
+        public virtual void Delete(int key)
         {
             var entitySet = EntityContext.Set<TEntity>();
             var entityToDelete = entitySet.Find(key);
@@ -55,23 +55,23 @@ namespace delete.Repository.RepositoryImplementations
                 entitySet.Remove(entityToDelete);
             }
         }
-        public TEntity Get(int key)
+        public virtual TEntity Get(int key)
         {
             var entitySet = EntityContext.Set<TEntity>();
             var entityToGet = entitySet.Find(key);
             
             return entityToGet;
         }
-        public IQueryable<TEntity> Get()
+        public virtual IQuerySpecifications<TEntity> Get()
         {
             var entitySet = EntityContext.Set<TEntity>();
             return entitySet;
         }
-        public void SaveChanges()
+        public virtual void SaveChanges()
         {
             EntityContext.SaveChanges();
         }
-        public TEntity Update(TEntity entity)
+        public virtual TEntity Update(TEntity entity)
         {
             //I like this better than what I do
             var entitySet = EntityContext.Set<TEntity>();
