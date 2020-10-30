@@ -6,6 +6,7 @@
 /.vs/delete/DesignTimeBuild
 /delete.API/obj
 /delete.Business/obj
+/delete.Business/bin
 /delete.Data/obj
 /delete.DB/obj/Debug
 /delete.DB/delete.DB.jfm
