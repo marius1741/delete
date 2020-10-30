@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
-using System.Text;
 
 namespace delete.Repository.RepositoryImplementations
 {
@@ -33,8 +31,18 @@ namespace delete.Repository.RepositoryImplementations
                 throw new ArgumentNullException(nameof(entity), "The entity you were trying to add was null");
             }
 
-            var entitySet = EntityContext.Set<TEntity>();
-            entitySet.AddRange(entity);
+            var adc = EntityContext.Configuration.AutoDetectChangesEnabled;
+            try
+            {
+                //disable autodetect changed on bulk operations in order to signifiantly improve performance
+                EntityContext.Configuration.AutoDetectChangesEnabled = false;
+                var entitySet = EntityContext.Set<TEntity>();
+                entitySet.AddRange(entity);
+            }
+            finally
+            {
+                EntityContext.Configuration.AutoDetectChangesEnabled = adc;
+            }
             return entity;
         }
         public void Delete(int key)
@@ -65,14 +73,21 @@ namespace delete.Repository.RepositoryImplementations
         }
         public TEntity Update(TEntity entity)
         {
+            //I like this better than what I do
             var entitySet = EntityContext.Set<TEntity>();
             var entry = EntityContext.Entry(entity);
-            
+
             if (entry.State == EntityState.Detached)
                 entitySet.Attach(entity);
             entry.State = EntityState.Modified;
-            
+
             return entity;
+
+            //var dbSet = EntityContext.Set<TEntity>();
+            //dbSet.Attach(entity);
+            //var entry = EntityContext.Entry(entity);
+            //entry.State = EntityState.Modified;
+            //return entity;
         }
     }
 }
