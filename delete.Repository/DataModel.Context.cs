@@ -17,6 +17,9 @@ namespace delete.Repository
     {
         public Entities()
             : base("name=Entities")
+        {}
+        public Entities(string connectionString)
+            : base(connectionString)
         {
         }
     

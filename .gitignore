@@ -14,3 +14,4 @@
 /delete.Repository/bin/Debug/netstandard2.0
 /delete.Repository/obj
 /packages
+/delete.DB/delete.DB.dbmdl
