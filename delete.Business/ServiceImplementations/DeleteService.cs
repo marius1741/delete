@@ -57,20 +57,37 @@ namespace delete.Business.ServiceImplementations
             var returnValue = new ServiceDataResponse<Delete>();
             returnValue.Data = deleteRepository.Get(id);
             returnValue.Type = returnValue.Data == null ? ResponseType.NotFound : ResponseType.Success;
-            returnValue.Message = returnValue.Data == null ? "Object not found" : string.em;
+            returnValue.Message = returnValue.Data == null ? "Object not found" : string.Empty;
+
             return returnValue;
         }
 
-        public IEnumerable<Delete> Get()
+        public ServiceDataResponse<IEnumerable<Delete>> Get()
         {
-            return deleteRepository.Get().Done();
+            var returnValue = new ServiceDataResponse<IEnumerable<Delete>>();
+            returnValue.Data = deleteRepository.Get().Done();
+            returnValue.Type = returnValue.Data == null ? ResponseType.NotFound : ResponseType.Success;
+            returnValue.Message = returnValue.Data == null ? "Object not found" : string.Empty;
+
+            return returnValue;
         }
 
-        public Delete Update(Delete entry)
+        public ServiceDataResponse<DeleteDTO> Update(DeleteDTO entry)
         {
-            var value = deleteRepository.Update(entry);
-            deleteRepository.SaveChanges();
-            return value;
+            var returnValue = new ServiceDataResponse<DeleteDTO>();
+            try
+            {
+                returnValue.Data = mapper.Map<DeleteDTO>(deleteRepository.Update(mapper.Map<Delete>(entry)));
+                deleteRepository.SaveChanges();
+                returnValue.Type = ResponseType.Success;
+            }
+            catch (Exception e)
+            {
+                returnValue.Type = ResponseType.ServerError;
+                returnValue.Message = e.Message;
+            }
+
+            return returnValue;
         }
     }
 }

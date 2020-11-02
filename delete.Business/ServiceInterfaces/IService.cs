@@ -1,4 +1,6 @@
-﻿using System;
+﻿using delete.DTO;
+using delete.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +10,10 @@ namespace delete.Business.ServiceInterfaces
 {
     public interface IService<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> Get();
-        TEntity Get(int key);
-        TEntity Add(TEntity entry);
-        TEntity Update(TEntity entry);
-        void Delete(int key);
+        ServiceDataResponse<IEnumerable<TEntity>> Get();
+        ServiceDataResponse<TEntity> Get(int key);
+        ServiceDataResponse<TEntity> Add(TEntity entry);
+        ServiceDataResponse<TEntity> Update(TEntity entry);
+        ServiceResponse Delete(int key);
     }
 }

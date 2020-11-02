@@ -50,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\delete.Data\delete.Data.csproj">
+      <Project>{109f336c-0b6e-4aae-9e06-c515d65abb85}</Project>
+      <Name>delete.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\delete.DTO\delete.DTO.csproj">
       <Project>{67E0D56E-81B7-4614-BE8C-4E8C817B4B71}</Project>
       <Name>delete.DTO</Name>

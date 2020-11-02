@@ -1,4 +1,6 @@
-﻿using delete.Business.ServiceInterfaces;
+﻿using AutoMapper;
+using delete.Business.ServiceInterfaces;
+using delete.DTO;
 using delete.Repository.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
@@ -8,43 +10,86 @@ using System.Threading.Tasks;
 
 namespace delete.Business.ServiceImplementations
 {
-    internal class Service<TEntity> : IService<TEntity> where TEntity : class
+    internal class Service<TEntity> where TEntity : class
     {
         private readonly IRepository<TEntity> repository;
-        public Service(IRepository<TEntity> repositoryInjection)
+        private readonly IMapper mapper;
+        public Service(IRepository<TEntity> repositoryInjection, IMapper mapperInjection)
         {
             repository = repositoryInjection;
+            mapper = mapperInjection;
         }
-        public TEntity Add(TEntity entry)
+        public ServiceDataResponse<TEntity> Add(TEntity entry)
         {
-            var returnValue = repository.Add(entry);
-            repository.SaveChanges();
+            var returnValue = new ServiceDataResponse<TEntity>();
+            try
+            {
+                returnValue.Data = mapper.Map<TEntity>(repository.Add(mapper.Map<TEntity>(entry)));
+                repository.SaveChanges();
+                returnValue.Type = ResponseType.Success;
+            }
+            catch (Exception ex)
+            {
+                returnValue.Type = ResponseType.ServerError;
+                returnValue.Message = ex.Message;
+            }
 
             return returnValue;
         }
 
-        public void Delete(int key)
+        public ServiceResponse Delete(int key)
         {
-            repository.Delete(key);
-            repository.SaveChanges();
+            ServiceResponse hasSucceded = new ServiceResponse();
+            try
+            {
+                repository.Delete(key);
+                hasSucceded.Type = ResponseType.Success;
+            }
+            catch (Exception ex)
+            {
+                hasSucceded.Type = ResponseType.ServerError;
+                hasSucceded.Message = ex.Message;
+            }
+
+            return hasSucceded;
         }
 
-        public IEnumerable<TEntity> Get()
+        public ServiceDataResponse<IEnumerable<TEntity>> Get()
         {
-            return repository.Get().Done();
+            var returnValue = new ServiceDataResponse<IEnumerable<TEntity>>();
+            returnValue.Data = repository.Get().Done();
+            returnValue.Type = returnValue.Data == null ? ResponseType.NotFound : ResponseType.Success;
+            returnValue.Message = returnValue.Data == null ? "Object not found" : string.Empty;
+
+            return returnValue;
         }
 
-        public TEntity Get(int key)
+        public ServiceDataResponse<TEntity> Get(int key)
         {
-            return repository.Get(key);
+            var returnValue = new ServiceDataResponse<TEntity>();
+            returnValue.Data = repository.Get(key);
+            returnValue.Type = returnValue.Data == null ? ResponseType.NotFound : ResponseType.Success;
+            returnValue.Message = returnValue.Data == null ? "Object not found" : string.Empty;
+
+            return returnValue;
         }
 
-        public TEntity Update(TEntity entry)
+        public ServiceDataResponse<TEntity> Update(TEntity entry)
         {
-            var value = repository.Update(entry);
-            repository.SaveChanges();
+            var returnValue = new ServiceDataResponse<TEntity>();
+            try
+            {
+                returnValue.Data = mapper.Map<TEntity>(repository.Update(mapper.Map<TEntity>(entry)));
+                repository.SaveChanges();
+                returnValue.Type = ResponseType.Success;
+            }
+            catch (Exception e)
+            {
+                returnValue.Type = ResponseType.ServerError;
+                returnValue.Message = e.Message;
+            }
 
-            return value;
+            return returnValue;
         }
     }
 }

@@ -10,10 +10,10 @@ namespace delete.Business.ServiceInterfaces
 {
     public interface IDeleteService
     {
-        IEnumerable<Delete> Get();
+        ServiceDataResponse<IEnumerable<Delete>> Get();
         ServiceDataResponse<Delete> Get(int id);
         ServiceDataResponse<DeleteDTO> Add(DeleteDTO entry);
-        Delete Update(Delete entry);
+        ServiceDataResponse<DeleteDTO> Update(DeleteDTO entry);
         ServiceResponse Delete(int id);
     }
 }

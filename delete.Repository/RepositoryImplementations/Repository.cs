@@ -65,7 +65,7 @@ namespace delete.Repository.RepositoryImplementations
         public virtual IQuerySpecifications<TEntity> Get()
         {
             var entitySet = EntityContext.Set<TEntity>();
-            return entitySet;
+            return (IQuerySpecifications<TEntity>)entitySet;
         }
         public virtual void SaveChanges()
         {
