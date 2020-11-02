@@ -41,18 +41,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AutomapperProfiles.cs" />
     <Compile Include="ServiceImplementations\DeleteService.cs" />
+    <Compile Include="ServiceImplementations\Service.cs" />
     <Compile Include="ServiceInterfaces\IDeleteService.cs" />
+    <Compile Include="ServiceInterfaces\IService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\delete.DTO\delete.DTO.csproj">
+      <Project>{67E0D56E-81B7-4614-BE8C-4E8C817B4B71}</Project>
+      <Name>delete.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\delete.Repository\delete.Repository.csproj">
       <Project>{4e9e6707-100f-4bea-8cea-2de65626ca45}</Project>
       <Name>delete.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper">
+      <Version>10.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>3.1.9</Version>
     </PackageReference>

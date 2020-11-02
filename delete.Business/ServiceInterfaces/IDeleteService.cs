@@ -1,4 +1,5 @@
-﻿using delete.Repository;
+﻿using delete.DTO;
+using delete.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace delete.Business.ServiceInterfaces
     public interface IDeleteService
     {
         IEnumerable<Delete> Get();
-        Delete Get(int id);
-        Delete Add(Delete entry);
+        ServiceDataResponse<Delete> Get(int id);
+        ServiceDataResponse<DeleteDTO> Add(DeleteDTO entry);
         Delete Update(Delete entry);
-        bool Delete(int id);
+        ServiceResponse Delete(int id);
     }
 }
