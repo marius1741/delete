@@ -45,7 +45,6 @@
     <Compile Include="ServiceImplementations\DeleteService.cs" />
     <Compile Include="ServiceImplementations\Service.cs" />
     <Compile Include="ServiceInterfaces\IDeleteService.cs" />
-    <Compile Include="ServiceInterfaces\IService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,7 +67,7 @@
       <Version>10.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
-      <Version>3.1.9</Version>
+      <Version>5.0.0-rc.2.20475.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
