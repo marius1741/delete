@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using delete.Business.ServiceImplementations;
+using delete.Business.ServiceInterfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace delete.Business
 {
@@ -8,7 +10,7 @@ namespace delete.Business
         {
             Repository.Startup.Configure(services, connectionString);
 
-            //services.AddScoped<IDeleteRepository, DeleteRepository>();
+            services.AddScoped<IDeleteService, DeleteService>();
         }
     }
 }
